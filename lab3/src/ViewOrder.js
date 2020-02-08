@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class SaladViewer extends Component {
+class ViewOrder extends Component {
     render() {
         return (
             <>
@@ -21,4 +21,4 @@ class SaladViewer extends Component {
         );
     }
 }
-export default SaladViewer;
+export default ViewOrder;
