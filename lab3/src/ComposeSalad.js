@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 class ComposeSalad extends Component {
     constructor(props) {
@@ -85,7 +86,7 @@ class ComposeSalad extends Component {
                         (<ul>
                             <input name="proteins" type="checkbox" value={name} checked={this.state.proteins.includes(name) || false}
                             onChange={this.handleChange}></input>
-                             <label>{name}</label>
+                             <label>{ <Link className="nav-link" to={'/view-ingredient/' + name}>{name}</Link>}</label>
                         </ul>))}
                     </div>
                     <div class="col">
@@ -95,7 +96,7 @@ class ComposeSalad extends Component {
                             <input name="extras" type="checkbox" value={name} checked={
                                 this.state.extras.includes(name) || false}
                             onChange={this.handleChange}></input>
-                            <label>{name}</label>
+                             <label>{ <Link className="nav-link" to={'/view-ingredient/' + name}>{name}</Link>}</label>
                         </ul>))}
                     </div>
                     <div class="col">

@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import logo from './logo.svg';
 import './App.css';
 import inventory from './inventory.ES6';
 
 import ComposeSalad from './ComposeSalad.js';
 import ViewOrder from './ViewOrder.js';
-
+import Error from './Error.js';
+import ViewIngredient from './ViewIngredient.js';
 
 
 class App extends Component {
@@ -33,6 +34,9 @@ class App extends Component {
       const composeSaladElem = (params) => <ComposeSalad {...params} inventory={inventory}
                         addSalad={this.addSalad} />;
       const viewOrderElem = (params) => <ViewOrder {...params} orders={this.state.orders} />;
+      const errorElem = (params) => <Error {...params} />;
+      const viewIngredientElem = (params) => <ViewIngredient {...params}  inventory={inventory}/>;
+
       return (
 
 
@@ -43,14 +47,18 @@ class App extends Component {
             <Router>
                 <ul className="nav nav-pills">
                     <li className="nav-item">
-                        <Link className="nav-link" to='compose-salad'>Komponera din egen sallad</Link>
+                        <Link className="nav-link" to='/compose-salad'>Komponera din egen sallad</Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to='view-order'>Kolla din beställning</Link>
+                        <Link className="nav-link" to='/view-order'>Kolla din beställning</Link>
                     </li>
                 </ul>
-                <Route path='/compose-salad' render={composeSaladElem}/>
-                <Route path='/view-order' render={viewOrderElem}/>
+                <Switch>
+                    <Route path='/compose-salad' render={composeSaladElem}/>
+                    <Route path='/view-order' render={viewOrderElem}/>
+                    <Route path='/view-ingredient/:name' render={viewIngredientElem}/>
+                    <Route render={errorElem}/>
+                </Switch>
             </Router>
         </div>
 
