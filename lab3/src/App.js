@@ -13,17 +13,15 @@ import ViewIngredient from './ViewIngredient.js';
 class App extends Component {
     constructor() {
         super();
-        this.state = {orders: []};
-        this.counter = 0;
+        this.state = {orders: [],
+                    id : 1,
+                    getUniqueId : function(){
+                        return this.id++;}
+        };
     }
 
-   getUniqueId(){
-        this.counter++;
-        return this.counter;
-   }
-
   addSalad = salad =>{
-       salad.id = this.getUniqueId();
+       salad.id = this.state.getUniqueId();
        const order = [...this.state.orders, salad];
         this.setState({
             orders: order
@@ -54,6 +52,7 @@ class App extends Component {
                     </li>
                 </ul>
                 <Switch>
+                    <Route exact path='/'/>
                     <Route path='/compose-salad' render={composeSaladElem}/>
                     <Route path='/view-order' render={viewOrderElem}/>
                     <Route path='/view-ingredient/:name' render={viewIngredientElem}/>

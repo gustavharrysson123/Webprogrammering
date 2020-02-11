@@ -10,8 +10,8 @@ class ViewOrder extends Component {
                             {salad.id +
                                 ": " +
                                 salad.foundation + ', ' +
-                                salad.proteins +
-                                salad.extras + ', ' +
+                                salad.proteins.map(name => name) + ', ' +
+                                salad.extras.map(name => name) + ', ' +
                                 salad.dressing}
                         </li>
                     ))}

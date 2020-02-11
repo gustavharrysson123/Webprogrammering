@@ -35,14 +35,14 @@ class ComposeSalad extends Component {
         event.target.classList.add("was-validated");
 
         if(event.target.checkValidity() === true){
-        const salad = this.state;
-        this.props.addSalad(salad);
+            const salad = this.state;
+            this.props.addSalad(salad);
 
-        this.setState({foundation: "",
-                        proteins: [],
-                        extras: [],
-                        dressing: ""});
-        this.props.history.push('/view-order');
+            this.setState({foundation: "",
+                            proteins: [],
+                            extras: [],
+                            dressing: ""});
+            this.props.history.push('/view-order');
         }
 
 
