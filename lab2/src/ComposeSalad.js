@@ -6,8 +6,7 @@ class ComposeSalad extends Component {
         this.state = {foundation: "",
                         proteins: [],
                         extras: [],
-                        dressing: "",
-
+                        dressing: ""
                         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -58,11 +57,12 @@ class ComposeSalad extends Component {
 
         return (
             <form onSubmit={this.handleSubmit}>
-                <h1>
+                <div class="container">
+                <h1 class="row justify-content-md-center">
                     <input type="submit" value="Submit" />
                 </h1>
-                <div class="form-row">
-                    <div class="col">
+                <div class="row">
+                    <div class="col-sm">
                         <h4>Välj bas</h4>
                         <ul>
                           <select name="foundation" value={this.state.value} onChange={this.handleChange}>
@@ -70,33 +70,34 @@ class ComposeSalad extends Component {
                           </select>
                         </ul>
                     </div>
-                    <div class="col">
+                    <div class="col-sm">
                         <h4>Välj protein</h4>
                         {proteins.map(name =>
                         (<ul>
-                            <input name="proteins" type="checkbox" value={name} checked={this.state.proteins.includes(name) || false}
+                            <input name="proteins" class="form-check-label" type="checkbox" value={name} checked={this.state.proteins.includes(name) || false}
                             onChange={this.handleChange}></input>
                              <label>{name}</label>
                         </ul>))}
                     </div>
-                    <div class="col">
+                    <div class="col-sm">
                         <h4>Välj extras</h4>
                         {extras.map(name =>
                         (<ul>
-                            <input name="extras" type="checkbox" value={name} checked={
+                            <input name="extras" class="form-check-label" type="checkbox" value={name} checked={
                                 this.state.extras.includes(name) || false}
                             onChange={this.handleChange}></input>
                             <label>{name}</label>
                         </ul>))}
                     </div>
-                    <div class="col">
+                    <div class="col-sm">
                         <h4>Välj dressing</h4>
                         <ul>
                         <select name="dressing" value={this.state.value} onChange={this.handleChange}>
-                        {dressings.map(name => <option value={name}>{name}</option>)}
+                        {dressings.map(name => <option key={name}>{name}</option>)}
                       </select>
                     </ul>
                     </div>
+                </div>
                 </div>
 
             </form>

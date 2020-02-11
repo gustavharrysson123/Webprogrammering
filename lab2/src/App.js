@@ -11,17 +11,15 @@ import SaladViewer from './SaladViewer.js';
 class App extends Component {
     constructor() {
         super();
-        this.state = {orders: []};
-        this.counter = 0;
+        this.state = {orders: [],
+                    id : 1,
+                    getUniqueId : function(){
+                        return this.id++;}
+        };
     }
 
-   getUniqueId(){
-        this.counter++;
-        return this.counter;
-   }
-
   addSalad = salad =>{
-       salad.id = this.getUniqueId();
+       salad.id = this.state.getUniqueId();
        const order = [...this.state.orders, salad];
         this.setState({
             orders: order
@@ -30,19 +28,15 @@ class App extends Component {
   };
   render(){
       return (
-        <div>
+      <div>
            <div className="jumbotron text-center">
              <h1>My Own Salad Bar</h1>
              <p>Here you can order custom made salads!</p>
-            </div>
+           </div>
+           <div class="container">
             <SaladViewer orders={this.state.orders}/>
-            <ComposeSalad inventory={inventory}
-                          addSalad={this.addSalad}/>
-
-
-           <div>
-
-         </div>
+            <ComposeSalad inventory={inventory} addSalad={this.addSalad}/>
+            </div>
        </div>
       );
   }
