@@ -7,8 +7,7 @@ class ComposeSalad extends Component {
         this.state = {foundation: "",
                         proteins: [],
                         extras: [],
-                        dressing: "",
-
+                        dressing: ""
                         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -35,14 +34,15 @@ class ComposeSalad extends Component {
         event.target.classList.add("was-validated");
 
         if(event.target.checkValidity() === true){
-        const salad = this.state;
-        this.props.addSalad(salad);
+            const salad = this.state;
+            this.props.addSalad(salad);
 
-        this.setState({foundation: "",
-                        proteins: [],
-                        extras: [],
-                        dressing: ""});
-        this.props.history.push('/view-order');
+            this.setState({foundation: "",
+                            proteins: [],
+                            extras: [],
+                            dressing: ""
+                            });
+            this.props.history.push('/view-order');
         }
 
 
@@ -67,6 +67,7 @@ class ComposeSalad extends Component {
 
         return (
             <form onSubmit={this.handleSubmit} noValidate>
+                <div class="container">
                 <h1>
                     <input type="submit" value="Submit" />
                 </h1>
@@ -109,7 +110,7 @@ class ComposeSalad extends Component {
 
                     </div>
                 </div>
-
+                </div>
             </form>
 
         );
