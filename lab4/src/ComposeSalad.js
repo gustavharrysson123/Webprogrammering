@@ -13,7 +13,6 @@ class ComposeSalad extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     handleChange = event => {
-        event.target.parentElement.classList.add("was-validated");
         const category = event.target.name
         const val = event.target.value
         if(category === "proteins"){
@@ -42,7 +41,8 @@ class ComposeSalad extends Component {
                             extras: [],
                             dressing: ""
                             });
-            this.props.history.push('/view-order');
+            //this.props.history.push('/view-order');
+            event.target.classList.remove("was-validated");
         }
 
 
@@ -74,7 +74,7 @@ class ComposeSalad extends Component {
                 <div class="form-row">
                     <div class="col">
                         <label htmlFor="foundationSelect">Select foundation</label>
-                          <select required name="foundation" className="form-control" id="foundationSelect" value={this.state.value} onChange={this.handleChange}>
+                          <select required name="foundation" className="form-control" id="foundationSelect" value={this.state.foundation} onChange={this.handleChange}>
                           <option value=''>make a choice...</option>
                             {foundations.map(name => <option value={name}>{name}</option>)}
                           </select>
@@ -102,7 +102,7 @@ class ComposeSalad extends Component {
                     </div>
                     <div class="col">
                         <label htmlFor="dressingSelect">Select dressing</label>
-                          <select required name="dressing" className="form-control" id="dressingSelect" value={this.state.value} onChange={this.handleChange}>
+                          <select required name="dressing" className="form-control" id="dressingSelect" value={this.state.dressing} onChange={this.handleChange}>
                           <option value=''>make a choice...</option>
                             {dressings.map(name => <option value={name}>{name}</option>)}
                           </select>

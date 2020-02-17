@@ -12,60 +12,60 @@ import ViewIngredient from './ViewIngredient.js';
 class App extends Component {
     constructor() {
         super();
-        this.id = 1;
+        this.id = 0;
         this.state = {orders: [],
                     inventory: {}
         };
-    }
+  }
 
   getUniqueId(){
-    return this.id++;
+    this.id++;
+    return this.id;
   }
   addSalad = salad =>{
        salad.id = this.getUniqueId();
        salad.price = this.calculatePrice(salad);
        const order = [...this.state.orders, salad];
+       window.localStorage.setItem("orders", JSON.stringify(order));
 
-        this.setState({
+       this.setState({
             orders: order
             });
 
-
-        fetch("http://localhost:8080/orders/", {
-            method: 'POST',
-            headers: new Headers(),
-            mode: "cors",
-            cache: "default",
-            body: "APAPAPAPAPAPAPSAPA"
-        }).then((response) => response.json())
-            .then((result) => {
-              alert('Success:', result);
-            });
-
-
-
   };
   calculatePrice = salad =>{
-
         let reducer = (accumulator, currentValue) =>  accumulator + this.state.inventory[currentValue].price;
 
         const ingredientsCost = this.state.inventory[salad.foundation].price +
         salad.proteins.concat(salad.extras).reduce(reducer, 0) +
         this.state.inventory[salad.dressing].price;
-        alert(ingredientsCost)
 
         return ingredientsCost;
 
 
   };
 
+  clearOrder = () => {
+        window.localStorage.clear();
+        this.setState({orders: []});
+        this.id = 0;
 
-  placeOrder = salad =>{
-       salad.id = this.getUniqueId();
-       const order = [...this.state.orders, salad];
-        this.setState({
-            orders: order
-            });
+    }
+
+
+  placeOrder = () =>{
+       if (this.state.orders.length < 1){
+           alert("Place an order first!")
+       } else{
+           fetch("http://localhost:8080/orders/", {
+                method: 'POST',
+                body: this.state.orders
+            }).then((response) => response.json())
+                .then((result) => {
+                  this.clearOrder();
+                  alert('Thank you for your order!', result);
+                });
+        }
 
   };
   componentDidMount() {
@@ -89,15 +89,24 @@ class App extends Component {
         });
         })
     );
+
+    let oldOrder = JSON.parse(window.localStorage.getItem("orders"));
+    if (oldOrder != null){
+        this.setState({ orders: oldOrder });
+        oldOrder.map(item => {
+            if(item.id > this.id){
+                this.id = item.id;
+            }
+        })
+    }
   }
   render(){
 
       const composeSaladElem = (params) => <ComposeSalad {...params} inventory={this.state.inventory}
                         addSalad={this.addSalad} />;
-      const viewOrderElem = (params) => <ViewOrder {...params} orders={this.state.orders} />;
+      const viewOrderElem = (params) => <ViewOrder {...params} orders={this.state.orders} clearOrder={this.clearOrder} placeOrder={this.placeOrder}/>;
       const errorElem = (params) => <Error {...params} />;
       const viewIngredientElem = (params) => <ViewIngredient {...params}  inventory={this.state.inventory}/>;
-
       return (
 
 
